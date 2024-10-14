@@ -53,7 +53,7 @@ The following variables need to be provided during deployment:
 - `subscription_id`: Azure Subscription ID.
 
 To obtain these:
-1. **Azure Subscription ID**: Run `az account show --query id --output tsv` after logging in with Azure CLI.
+1. **Azure Subscription ID**: Run `az account show --query id --output tsv` after logging in with Azure CLI (`az login`).
 2. **SSH Key Pair**: Generate with `ssh-keygen` if you don’t already have one.
 
 ### Deployment Steps
@@ -68,7 +68,7 @@ To obtain these:
 ### Cleaning Up
 To destroy all resources created by this Terraform setup, run:
 ```bash
-terraform destroy -auto-approve
+terraform destroy [-auto-approve]  # L'argument -auto-approve est optionnel ; il permet de détruire les ressources sans demander de confirmation
 ```
 
 ## Troubleshooting
