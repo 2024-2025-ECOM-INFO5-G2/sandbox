@@ -47,7 +47,7 @@ A shell script for setting up the VM environment after provisioning.
 ## Setup and Configuration
 
 ### Configuring Variables
-The following variables need to be set in `main.tf` or provided during deployment:
+The following variables need to be provided during deployment:
 - `pub_ssh_key`: Path to your public SSH key for VM access.
 - `priv_ssh_key`: Path to your private SSH key for Terraform provisioners.
 - `subscription_id`: Azure Subscription ID.
@@ -57,11 +57,13 @@ To obtain these:
 2. **SSH Key Pair**: Generate with `ssh-keygen` if you don’t already have one.
 
 ### Deployment Steps
-1. **Deploy the Application**:
+1. Make sure you're connected to Docker Hub.
+   
+2. **Deploy the Application**:
    ```bash
    ./deploy.sh <version>  # Replace <version> with the desired version tag, e.g., v1.0.0
    ```
-2. enter your subscription_id and your ssk_key.
+3. enter your subscription_id and your ssk keys.
 
 ### Cleaning Up
 To destroy all resources created by this Terraform setup, run:
