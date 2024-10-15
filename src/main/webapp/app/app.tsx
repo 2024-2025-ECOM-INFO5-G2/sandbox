@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from 'app/config/store';
 import { getSession } from 'app/shared/reducers/authentication';
 import { getProfile } from 'app/shared/reducers/application-profile';
 import Header from 'app/shared/layout/header/header';
+import NavAdmin from 'app/shared/layout/navadmin/navadmin';
 import Footer from 'app/shared/layout/footer/footer';
 import { hasAnyAuthority } from 'app/shared/auth/private-route';
 import ErrorBoundary from 'app/shared/error/error-boundary';
@@ -34,13 +35,14 @@ export const App = () => {
   const isInProduction = useAppSelector(state => state.applicationProfile.inProduction);
   const isOpenAPIEnabled = useAppSelector(state => state.applicationProfile.isOpenAPIEnabled);
 
-  const paddingTop = '60px';
   return (
     <BrowserRouter basename={baseHref}>
-      <div className="app-container" style={{ paddingTop }}>
+      <div className="app-container">
         <ToastContainer position="top-left" className="toastify-container" toastClassName="toastify-toast" />
         <ErrorBoundary>
-          <Header
+          <Header isAuthenticated={isAuthenticated} /> {/* HEADER */}
+          {/* ADMIN NAVIGATION BAR (TODO: to display only if admin but need to arrange items) */}
+          <NavAdmin
             isAuthenticated={isAuthenticated}
             isAdmin={isAdmin}
             currentLocale={currentLocale}
@@ -49,13 +51,16 @@ export const App = () => {
             isOpenAPIEnabled={isOpenAPIEnabled}
           />
         </ErrorBoundary>
+
         <div className="container-fluid view-container" id="app-view-container">
           <Card className="jh-card">
+            {' '}
+            {/* MAIN CARD */}
             <ErrorBoundary>
               <AppRoutes />
             </ErrorBoundary>
           </Card>
-          <Footer />
+          <Footer /> {/* FOOTER */}
         </div>
       </div>
     </BrowserRouter>

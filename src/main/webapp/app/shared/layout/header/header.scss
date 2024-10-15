@@ -1,85 +1,45 @@
-$header-color: #fff;
-$header-color-secondary: #bbb;
-$header-color-hover: darken($header-color, 20%);
+.MMM-Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 10px;
+}
 
-/* ==========================================================================
-Development Ribbon
-========================================================================== */
-.ribbon {
-  background-color: rgba(170, 0, 0, 0.5);
-  left: -3.5em;
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  overflow: hidden;
-  position: absolute;
-  top: 40px;
-  white-space: nowrap;
-  width: 15em;
-  z-index: 99999;
-  pointer-events: none;
-  opacity: 0.75;
-  a {
-    color: #fff;
-    display: block;
-    font-weight: 400;
-    margin: 1px 0;
-    padding: 10px 50px;
-    text-align: center;
-    text-decoration: none;
-    text-shadow: 0 0 5px #444;
-    pointer-events: none;
+.MMM-Header div:nth-child(2) ul {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.MMM-Header div:nth-child(2) ul li {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.MMM-Header div:nth-child(2) ul li:nth-child(1) {
+  margin-right: 10px;
+}
+
+.MMM-Header ul li a span span {
+  padding: 10px;
+  background-color: var(--green1);
+  color: var(--white) !important;
+  border-radius: 10px;
+  font-family: Tango;
+  font-size: 16px;
+}
+
+.MMM-Header ul li a span span:hover {
+  background-color: var(--green2);
+  color: var(--white);
+}
+
+@media only screen and (max-width: 750px) {
+  .MMM-Header {
+    justify-content: center;
+    padding: 20px;
   }
-}
-
-/* ==========================================================================
-Navbar styles
-========================================================================== */
-.navbar-brand {
-  overflow: hidden;
-}
-
-.jh-navbar .navbar-nav .nav-link {
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.navbar-version {
-  font-size: 0.65em;
-  color: $header-color-secondary;
-  padding: 0 0 0 10px;
-}
-
-.brand-logo {
-  &:hover {
-    text-decoration: none;
-  }
-  .brand-icon {
-    height: 35px;
-    width: auto;
-    display: inline-block;
-    img {
-      width: 45px;
-    }
-  }
-}
-
-.brand-title {
-  font-size: 1.25rem;
-  margin-left: 0.25rem;
-  color: $header-color;
-  &:hover {
-    color: $header-color-hover;
-    text-decoration: none;
-  }
-}
-
-.loading-bar {
-  height: 3px;
-  background-color: #009cd8;
-  position: absolute;
-  top: 0px;
-  z-index: 1031;
 }

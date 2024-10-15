@@ -1,9 +1,10 @@
 {
   "global": {
-    "title": "EcomMMM",
+    "title": "Mes Meilleurs Menus",
     "browsehappy": "Vous utilisez un <strong>ancien</strong> navigateur. Veuillez <a href=\"http://browsehappy.com/?locale=fr\">mettre à jour votre navigateur</a> pour une meilleure expérience.",
     "menu": {
       "home": "Accueil",
+      "mes-meilleurs-courses": "Mes Meilleures Courses",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entités",

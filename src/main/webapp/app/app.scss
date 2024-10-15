@@ -1,9 +1,30 @@
 // Override Bootstrap variables
-@import 'bootstrap-variables';
 @import 'bootswatch/dist/materia/variables';
 // Import Bootstrap source files from node_modules
 @import 'bootstrap/scss/bootstrap';
 @import 'bootswatch/dist/materia/bootswatch';
+
+/**********************************************************************************/
+/* MMM Colors
+/**********************************************************************************/
+
+:root {
+  --green1: #004c40;
+  --green2: #85bb2f;
+  --white: #fff;
+}
+
+/**********************************************************************************/
+/* MMM Fonts
+/**********************************************************************************/
+
+@font-face {
+  font-family: 'Tango';
+  src: url('../content/fonts/TangoSans.ttf');
+}
+
+/**********************************************************************************/
+
 body {
   margin: 0;
 }

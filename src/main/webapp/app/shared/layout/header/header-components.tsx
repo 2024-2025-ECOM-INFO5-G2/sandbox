@@ -3,31 +3,45 @@ import { Translate } from 'react-jhipster';
 
 import { NavItem, NavLink, NavbarBrand } from 'reactstrap';
 import { NavLink as Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export const BrandIcon = props => (
-  <div {...props} className="brand-icon">
-    <img src="content/images/logo-jhipster.png" alt="Logo" />
-  </div>
-);
-
-export const Brand = () => (
+export const BrandLogo = () => (
   <NavbarBrand tag={Link} to="/" className="brand-logo">
-    <BrandIcon />
-    <span className="brand-title">
-      <Translate contentKey="global.title">EcomMMM</Translate>
+    <span>
+      <img src="content/images/logo.png" width={300} />
     </span>
-    <span className="navbar-version">{VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`}</span>
   </NavbarBrand>
 );
 
-export const Home = () => (
-  <NavItem>
-    <NavLink tag={Link} to="/" className="d-flex align-items-center">
-      <FontAwesomeIcon icon="home" />
-      <span>
-        <Translate contentKey="global.menu.home">Home</Translate>
-      </span>
-    </NavLink>
-  </NavItem>
+export const NavUser = ({ isAuthenticated }) => (
+  <div>
+    <ul>
+      {!isAuthenticated && (
+        <NavItem>
+          <NavLink tag={Link} to="/account/register">
+            <span>
+              <Translate contentKey="header.inscrire"></Translate>
+            </span>
+          </NavLink>
+        </NavItem>
+      )}
+
+      <NavItem>
+        <NavLink tag={Link} to="https://www.leetchi.com/c/mes-meilleurs-menus">
+          <span>
+            <Translate contentKey="header.don"></Translate>
+          </span>
+        </NavLink>
+      </NavItem>
+
+      {isAuthenticated && (
+        <NavItem>
+          <NavLink tag={Link} to="/account/settings">
+            <span>
+              <Translate contentKey="header.compte"></Translate>
+            </span>
+          </NavLink>
+        </NavItem>
+      )}
+    </ul>
+  </div>
 );
