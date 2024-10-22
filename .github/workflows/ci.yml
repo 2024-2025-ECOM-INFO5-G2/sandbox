@@ -45,8 +45,8 @@ jobs:
       #   run: npm run test
       
       # Backend tests section 
-      - name: Install backend dependencies
-        run: ./gradlew clean build
+      # - name: Install backend dependencies
+      #   run: ./gradlew clean build
 
       - name: Run backend tests
         run: ./gradlew test
