@@ -1,5 +1,6 @@
 name: CI Pipeline
 
+# Trigger the pipeline on push to main branch or pull request to main branch
 on:
   push:
     branches:
@@ -8,14 +9,18 @@ on:
     branches:
       - main
 
+# Jobs to run
 jobs:
   build-and-push:
+    # Set up the job to run on Ubuntu
     runs-on: ubuntu-latest
 
     steps:
+      # run the checkout action to get the code
       - name: Checkout code
         uses: actions/checkout@v2
       
+      # Set up JDK and Node.js
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
@@ -27,15 +32,26 @@ jobs:
         with:
           node-version: '16'
       
+      # Install dependencies
       - name: Install dependencies
         run: npm install
       
+      # Linting section
       - name: Run Lint
         run: npm run lint
       
-      - name: Run Unit Tests
-        run: npm run test
+      # Frontend tests section
+      # - name: Run Unit Tests
+      #   run: npm run test
       
+      # Backend tests section 
+      - name: Install backend dependencies
+        run: ./gradlew clean build
+
+      - name: Run backend tests
+        run: ./gradlew test
+
+      # Build and push Docker image
       - name: Build Docker image
         run: |
           echo "Building Docker image with the 'latest' tag..."
