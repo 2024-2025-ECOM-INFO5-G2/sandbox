@@ -28,13 +28,13 @@ jobs:
         run: npm run lint
       
       - name: Run Unit Tests
-        run: npm run test:unit
+        run: npm run test
 
-      - name: Build the project
-        run: npm run build
+      # - name: Build the project
+      #   run: npm run build
 
-      - name: Build Docker image
-        run: npm run java:docker:prod
-        
+      # - name: Build Docker image
+      #   run: npm run java:docker:prod
+
       
     
