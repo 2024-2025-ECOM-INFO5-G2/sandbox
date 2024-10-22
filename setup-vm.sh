@@ -33,10 +33,25 @@ sudo systemctl start docker
 sudo usermod -aG docker $USER
 newgrp docker
 
-# Lancer Docker au démarrage
+# Pull and run the Docker image with the specified version
+DOCKER_IMAGE="romainmiras/ecommmm:${image_version}"
+sudo docker pull $DOCKER_IMAGE
 
-docker compose -f /home/azureuser/docker/docker-compose.yml up
+# Create a directory for docker-compose
+mkdir -p /home/azureuser/docker
 
-# Restart le container webserver
+# Replace the image version in the docker-compose file
+cat <<EOF > /home/azureuser/docker/docker-compose.yml
+version: '3'
+services:
+  webserver:
+    image: $DOCKER_IMAGE
+    ports:
+      - "80:80"
+EOF
 
+# Start the container with Docker Compose
+docker compose -f /home/azureuser/docker/docker-compose.yml up -d
+
+# Restart the container if necessary
 docker restart webserver

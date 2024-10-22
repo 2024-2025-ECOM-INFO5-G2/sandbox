@@ -4,6 +4,11 @@ variable "pub_ssh_key" {
   type        = string
 }
 
+variable "image_version" {
+  description = "The version of the Docker image to deploy"
+  type        = string
+}
+
 variable "priv_ssh_key" {
   description = "path to SSH private key for the connection provisioner"
   type        = string
@@ -168,7 +173,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   # Custom script to Setup the VM
-  custom_data = filebase64("${path.module}/setup-vm.sh")
+  custom_data = base64encode(templatefile("${path.module}/setup-vm.sh", {
+    image_version = var.image_version
+  }))
 }
 
 # Sortie : Adresse IP publique
