@@ -1,6 +1,5 @@
 name: CI Pipeline
 
-# Trigger the pipeline on push to main branch or pull request to main branch
 on:
   push:
     branches:
@@ -9,36 +8,45 @@ on:
     branches:
       - main
 
-# Jobs to run
 jobs:
-  build-and-push:
-    # Set up the job to run on Ubuntu
+  frontend-tests:
     runs-on: ubuntu-latest
-
     steps:
-      # run the checkout action to get the code
       - name: Checkout code
         uses: actions/checkout@v2
-      
-      # Set up JDK and Node.js
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-      
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
       
-      # Install dependencies
       - name: Install dependencies
         run: npm install
-      
-      # Linting section
+
       - name: Run Lint
         run: npm run lint
+
+      - name: Run Frontend Unit Tests
+        run: npm run test
+
+  backend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install backend dependencies
+        run: ./gradlew clean build
+
+      - name: Run Backend Tests
+        run: ./gradlew test
+
       
       # Frontend tests section
       # - name: Run Unit Tests
@@ -52,30 +60,32 @@ jobs:
       #   run: ./gradlew test
 
       # Build and push Docker image
-      - name: Build Docker image
-        run: |
-          echo "Building Docker image with the 'latest' tag..."
-          ./gradlew -Pprod clean bootJar
-          ./gradlew -Pprod bootJar jibDockerBuild
+      # - name: Build Docker image
+      #   run: |
+      #     echo "Building Docker image with the 'latest' tag..."
+      #     ./gradlew -Pprod clean bootJar
+      #     ./gradlew -Pprod bootJar jibDockerBuild
 
-      - name: Check if Docker image exists
-        run: |
-          IMAGE_NAME="ecommmm"
-          if [[ "$(docker images -q $IMAGE_NAME 2> /dev/null)" == "" ]]; then
-              echo "Error: Local Docker image '$IMAGE_NAME' not found."
-              exit 1
-          fi
+      # - name: Check if Docker image exists
+      #   run: |
+      #     IMAGE_NAME="ecommmm"
+      #     if [[ "$(docker images -q $IMAGE_NAME 2> /dev/null)" == "" ]]; then
+      #         echo "Error: Local Docker image '$IMAGE_NAME' not found."
+      #         exit 1
+      #     fi
 
-      - name: Tag Docker image as 'latest'
-        run: |
-          IMAGE_NAME="ecommmm"
-          DOCKER_HUB_REPO="romainmiras/ecommmm"
-          echo "Tagging Docker image as 'latest'..."
-          docker tag $IMAGE_NAME $DOCKER_HUB_REPO:latest
+      # - name: Tag Docker image as 'latest'
+      #   run: |
+      #     IMAGE_NAME="ecommmm"
+      #     DOCKER_HUB_REPO="romainmiras/ecommmm"
+      #     echo "Tagging Docker image as 'latest'..."
+      #     docker tag $IMAGE_NAME $DOCKER_HUB_REPO:latest
 
-      - name: Push Docker image to Docker Hub
-        run: |
-          DOCKER_HUB_REPO="romainmiras/ecommmm"
-          echo "Pushing Docker image to Docker Hub..."
-          docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
-          docker push $DOCKER_HUB_REPO:latest
+      # - name: Push Docker image to Docker Hub
+      #   run: |
+      #     DOCKER_HUB_REPO="romainmiras/ecommmm"
+      #     echo "Pushing Docker image to Docker Hub..."
+      #     docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+      #     docker push $DOCKER_HUB_REPO:latest
+
+      
